@@ -1,0 +1,20 @@
+html, body, #map {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    background: #eef5ef;
+}
+
+.stop-marker {
+    background: #0f6b4f;
+    border: 2px solid white;
+    border-radius: 999px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .25);
+}
+
+.bus-marker {
+    background: #f0a202;
+    border: 2px solid #2a2114;
+    border-radius: 6px;
+}
