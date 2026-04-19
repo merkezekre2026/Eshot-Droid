@@ -41,7 +41,7 @@ fun LeafletMap(
         update = { webView ->
             webView.post {
                 webView.evaluateJavascript(
-                    "window.renderTransit(${routePoints.toJson()}, ${stops.toJson()}, ${liveBuses.toJson()}, ${userLocation.toJson()});",
+                    "window.renderTransit(${routePointsToJson(routePoints)}, ${stopsToJson(stops)}, ${liveBusesToJson(liveBuses)}, ${userLocation.toJson()});",
                     null,
                 )
             }
@@ -62,14 +62,14 @@ class LeafletBridge(
     }
 }
 
-private fun List<RoutePoint>.toJson(): String = JSONArray().also { array ->
-    forEach { point ->
+private fun routePointsToJson(points: List<RoutePoint>): String = JSONArray().also { array ->
+    points.forEach { point ->
         array.put(JSONObject().put("lat", point.latitude).put("lon", point.longitude))
     }
 }.toString()
 
-private fun List<BusStop>.toJson(): String = JSONArray().also { array ->
-    forEach { stop ->
+private fun stopsToJson(stops: List<BusStop>): String = JSONArray().also { array ->
+    stops.forEach { stop ->
         array.put(
             JSONObject()
                 .put("id", stop.stopId)
@@ -80,8 +80,8 @@ private fun List<BusStop>.toJson(): String = JSONArray().also { array ->
     }
 }.toString()
 
-private fun List<LiveBus>.toJson(): String = JSONArray().also { array ->
-    forEach { bus ->
+private fun liveBusesToJson(buses: List<LiveBus>): String = JSONArray().also { array ->
+    buses.forEach { bus ->
         array.put(
             JSONObject()
                 .put("id", bus.vehicleId ?: "")
